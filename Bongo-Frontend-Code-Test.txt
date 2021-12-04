@@ -1,0 +1,134 @@
+1) Write a function that detects if two strings are an anagram e.g. ‘bleat’ and ‘table’ are anagrams but ‘eat’ and ‘tar’ are not.
+Answer: function checkStringsAnagram (a,b) {
+		let len1 = a.length;
+		let len2 = b.length;
+		if (len1 !== len2 || a === b) {
+			console.log("Invalid Input");
+			return
+		}
+		a = a.toLowerCase();
+		b = b.toLowerCase();
+		let str1 = a.split('').sort().join('');
+		let str2 = b.split('').sort().join('');
+		if (str1 === str2) {
+			console.log("True");
+		}
+		else {
+			console.log("False");
+		}
+	}
+
+	checkStringsAnagram("bleat","table"); // True
+	checkStringsAnagram("eat","tar"); // False
+
+
+2) Explain the design pattern used in following:
+	interface Vehicle {
+		int set_num_of_wheels()
+		int set_num_of_passengers()
+		boolean has_gas()
+	}
+a) Explain how can you use the pattern to create car and plane class?
+b) Use a different design pattern for this solution.
+Answer: It shows an interface, not a specific pattern. The interface can be used in a design pattern however,
+	such as the factory pattern, builder pattern, etc.
+a)  The design pattern that is used in above is Abstract Factory Design Pattern. This pattern is of the most used design patterns in Java. This 
+    type of design pattern comes under creational pattern as this pattern provides one of the best ways to create an object.
+    To create a car or plane, you would simply implement the interface in a concrete class, and return the appropriate values for each function. 
+    If a factory pattern, the factory would simply return an implementation of some sort that implemented that interface. Here, factory class 
+    manage all the instance, through the factory class we will get the type of vehicle and create the object car or plane.  
+	
+	class VehicleFactory {
+    		public Vehicle create (int type){
+        		if ( type == 0 ){ 
+             			return new Car();
+        		}
+	        	return new Plane();
+    		}
+  	}
+
+  	class Car implements Vehicle {
+      		int set_num_of_wheels() { return 4; }
+      		int set_num_of_passengers() { return 5; }
+      		boolean has_gas() { return true; }
+  	}
+  
+  	class Plane implements Vehicle {
+      		int set_num_of_wheels() { return 5; }
+      		int set_num_of_passengers() { return 300; }
+      		boolean has_gas() { return true; }
+  	}
+
+b)  If you were using an builder pattern, the interface would simply define the contract for the builder. The builder class builds the final object
+    step by step. This builder is independent of other objects.
+    Lets try a Builder pattern for example:
+  
+	class VehicleBuilder {
+        	int num_of_wheels = 0;
+        	int num_of_passengers = 0;
+        	boolean has_gas = false;
+
+		public VehicleBuilder wheels (int wheels) {
+         		num_of_wheels = wheels;
+         		return this;
+     		}
+
+     		public VehicleBuilder passengers (int passengers) {
+         		num_of_passengers = passengers;
+         		return this;
+     		}
+
+     		public VehicleBuilder gas (boolean gas) {
+         		has_gas = gas;
+         		return this;
+     		}
+
+    		public Vehicle build() {
+         		return new VehicleImpl(num_of_wheels, num_of_passengers, has_gas);
+        
+    		}
+  	}
+
+  	class VehicleImplement (int wheels, int passengers, boolean gas) implements Vehicle {
+      		int set_num_of_wheels() { return wheels; }
+      		int set_num_of_passengers() { return passengers; }
+     		boolean has_gas() { return gas; }
+  	}
+
+
+3) Write a video player application with ‘Play’, ‘Forward’, ‘Rewind’ functionalities. Please write pseudocode for this program and explain 
+   the design pattern you will use to develop these three functionalities.
+Answer:    
+	class VideoView {
+       		void play(){...}
+       		void forward(){...}
+       		void rewind(){...}
+       		void stop(){...}
+       		boolean isPlaying(){...}
+   	}
+
+  	class VideoPlayerApp {
+      		VideoView viewer = new VideoView();
+      		Button playButton = new Button(new OnClick(){
+           		if(viewer.isPlaying()){
+               			viewer.stop();
+           		} 
+			else{
+               			viewer.play();
+           		}
+       		});
+      		Button forwardButton = new Button(new OnClick(){
+          		if(viewer.isPlaying()){
+              			viewer.stop();
+          		}
+          		viewer.forward();
+       		});
+
+      		Button rewindButton = new Button(new OnClick(){
+          		if(viewer.isPlaying()){
+              			viewer.stop();
+          		}
+         		viewer.rewind();
+       		});
+
+   	}
