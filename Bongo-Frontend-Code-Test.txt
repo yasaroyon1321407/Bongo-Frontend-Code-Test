@@ -30,8 +30,7 @@ Answer: function checkStringsAnagram (a,b) {
 	}
 a) Explain how can you use the pattern to create car and plane class?
 b) Use a different design pattern for this solution.
-Answer: It shows an interface, not a specific pattern. The interface can be used in a design pattern however,
-	such as the factory pattern, builder pattern, etc.
+Answer: 
 a)  The design pattern that is used in above is Abstract Factory Design Pattern. This pattern is of the most used design patterns in Java. This 
     type of design pattern comes under creational pattern as this pattern provides one of the best ways to create an object.
     To create a car or plane, you would simply implement the interface in a concrete class, and return the appropriate values for each function. 
